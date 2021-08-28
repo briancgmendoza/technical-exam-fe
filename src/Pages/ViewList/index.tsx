@@ -30,7 +30,7 @@ const ViewList = () => {
 
   if (status === "pending") {
     return (
-      <div className="centered">
+      <div className="d-flex justify-content-center m-3">
         <Spinner />
       </div>
     );
