@@ -68,7 +68,7 @@ const Form = ({ btnText, onSubmit }: any) => {
             {/* Last Name Field */}
             <div className="input-group mb-3">
               <span className="input-group-text">Last Name</span>
-              <Field name="lastName" className="form-control"></Field>
+              <Field name="lastName" className="form-control" />
               {errors.lastName && touched.lastName && (
                 <p style={{ color: "salmon", marginLeft: "10px" }}>
                   {errors.lastName}
