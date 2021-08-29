@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // Importing necessary files for API Request
@@ -16,12 +16,6 @@ import Modal from "../../Components/Modal";
 import Form from "../../Components/Form";
 
 const ViewList = () => {
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [middleName, setMiddleName] = useState("");
-  const [age, setAge] = useState("");
-  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   let { sendRequest, status, data, error } = useHttp(getData, true);
 
   // Getting the data from db
@@ -115,29 +109,9 @@ const ViewList = () => {
 
       <Modal modalName="Add Employee">
         <Form
-          // FIXME: Look for an alternative way to pass multiple props
-          lastName={lastName}
-          setLastName={setLastName}
-          firstName={firstName}
-          setFirstName={setFirstName}
-          middleName={middleName}
-          setMiddleName={setMiddleName}
-          age={age}
-          setAge={setAge}
-          address={address}
-          setAddress={setAddress}
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-          onSubmit={(e: React.SyntheticEvent) => {
-            e.preventDefault();
-            addData({
-              lastName,
-              firstName,
-              middleName,
-              age,
-              address,
-              phoneNumber,
-            });
+          btnText="Create"
+          onSubmit={(props: any) => {
+            addData(props);
           }}
         />
       </Modal>

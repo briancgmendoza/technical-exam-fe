@@ -1,6 +1,7 @@
 type Props = {
   type: "button" | "submit" | "reset";
   className: string;
+  name?: string;
   onClick?: (e: React.SyntheticEvent) => void | any;
   children?: JSX.Element | string;
 };
