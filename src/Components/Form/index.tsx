@@ -1,129 +1,148 @@
+// Importing Formik and Yup
+import { Formik, Form as FormikForm, Field } from "formik";
+import * as Yup from "yup";
+
 // Importing Re-useable Components
-import React from "react";
-import Input from "../Input";
+import Button from "../Button";
 
-type Props = {
-  lastName?: string;
-  firstName?: string;
-  middleName?: string;
-  age?: string;
-  address?: string;
-  phoneNumber?: string;
-  // FIXME: Look for alternatives, don't use any
-  setLastName?: React.Dispatch<React.SetStateAction<string>> | any;
-  setFirstName?: React.Dispatch<React.SetStateAction<string>> | any;
-  setMiddleName?: React.Dispatch<React.SetStateAction<string>> | any;
-  setAge?: React.Dispatch<React.SetStateAction<string>> | any;
-  setAddress?: React.Dispatch<React.SetStateAction<string>> | any;
-  setPhoneNumber?: React.Dispatch<React.SetStateAction<string>> | any;
-  onSubmit: (e: React.SyntheticEvent) => void;
-};
+const formSchema = Yup.object().shape({
+  lastName: Yup.string()
+    .min(1, "Too Short!") // Making it 1 because there's 2 letter last names like "Yu"
+    .max(20, "Too Long!")
+    .required("Last Name is required!"),
+  firstName: Yup.string()
+    .min(1, "Too Short!")
+    .max(20, "Too Long!")
+    .required("First Name is required!"),
+  middleName: Yup.string()
+    .min(1, "Too Short!")
+    .max(20, "Too Long!")
+    .required("Middle Name is required!"),
+  age: Yup.number() // Please note that this is only a validation, it'll only accept number in UI, but in backend it accepts it as string
+    .moreThan(0)
+    .max(99, "Too Long!")
+    .required("Age is required!")
+    .typeError("Age must be a number!"),
+  address: Yup.string()
+    .min(5, "Too Short!")
+    .max(500, "Too Long!")
+    .required("Address is required!"),
+  phoneNumber: Yup.string() // Making it string because of + and -
+    .min(5, "Too Short!")
+    .max(20, "Too Long!")
+    .required("Phone Number is required!"),
+});
 
-const Form = ({
-  lastName,
-  setLastName,
-  firstName,
-  setFirstName,
-  middleName,
-  setMiddleName,
-  age,
-  setAge,
-  address,
-  setAddress,
-  phoneNumber,
-  setPhoneNumber,
-  onSubmit,
-}: Props) => {
+// FIXME: Can't figure out a way to define props
+// type Props = {
+//   lastName: string;
+//   firstName: string;
+//   middleName: string;
+//   age: string;
+//   address: string;
+//   phoneNumber: string;
+//   onSubmit: () => any;
+// };
+
+const Form = ({ btnText, onSubmit }: any) => {
+  const myInitialValues = {
+    lastName: "",
+    firstName: "",
+    middleName: "",
+    age: "",
+    address: "",
+    phoneNumber: "",
+  };
+
   return (
-    <form className="p-2 w-100 bd-highlight" onSubmit={onSubmit}>
-      <div className="input-group mb-3">
-        <span className="input-group-text">Last Name</span>
-        <Input
-          type="text"
-          className="form-control"
-          placeholder="Ex: Dela Cruz"
-          value={lastName}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setLastName(e.currentTarget.value)
-          }
-          required
-        />
-      </div>
+    <>
+      <Formik
+        initialValues={myInitialValues}
+        validationSchema={formSchema}
+        onSubmit={(values) => {
+          onSubmit(values);
+        }}
+      >
+        {({ errors, touched }) => (
+          <FormikForm className="p-2 w-100 bd-highlight">
+            {/* Last Name Field */}
+            <div className="input-group mb-3">
+              <span className="input-group-text">Last Name</span>
+              <Field name="lastName" className="form-control"></Field>
+              {errors.lastName && touched.lastName && (
+                <p style={{ color: "salmon", marginLeft: "10px" }}>
+                  {errors.lastName}
+                </p>
+              )}
+            </div>
 
-      <div className="input-group mb-3">
-        <span className="input-group-text">First Name</span>
-        <Input
-          type="text"
-          className="form-control"
-          placeholder="Ex: Juan"
-          value={firstName}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setFirstName(e.currentTarget.value)
-          }
-          required
-        />
-      </div>
+            {/* First Name Field */}
+            <div className="input-group mb-3">
+              <span className="input-group-text">First Name</span>
+              <Field name="firstName" className="form-control" />
+              {errors.firstName && touched.firstName && (
+                <p style={{ color: "salmon", marginLeft: "10px" }}>
+                  {errors.firstName}
+                </p>
+              )}
+            </div>
 
-      <div className="input-group mb-3">
-        <span className="input-group-text">Middle Name</span>
-        <Input
-          type="text"
-          className="form-control"
-          placeholder="Ex: Gervasio"
-          value={middleName}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setMiddleName(e.currentTarget.value)
-          }
-          required
-        />
-      </div>
+            {/* Middle Name Field */}
+            <div className="input-group mb-3">
+              <span className="input-group-text">Middle Name</span>
+              <Field name="middleName" className="form-control" />
+              {errors.middleName && touched.middleName && (
+                <p style={{ color: "salmon", marginLeft: "10px" }}>
+                  {errors.middleName}
+                </p>
+              )}
+            </div>
 
-      <div className="input-group mb-3">
-        <span className="input-group-text">Age</span>
-        <Input
-          type="text"
-          className="form-control"
-          placeholder="Ex: 20"
-          value={age}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setAge(e.currentTarget.value)
-          }
-          required
-        />
-      </div>
+            {/* Age Field */}
+            <div className="input-group mb-3">
+              <span className="input-group-text">Age</span>
+              <Field name="age" className="form-control" />
+              {errors.age && touched.age && (
+                <p style={{ color: "salmon", marginLeft: "10px" }}>
+                  {errors.age}
+                </p>
+              )}
+            </div>
 
-      <div className="input-group mb-3">
-        <span className="input-group-text">Address</span>
-        <Input
-          type="text"
-          className="form-control"
-          placeholder="Ex: Metro Manila, Philippines"
-          value={address}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setAddress(e.currentTarget.value)
-          }
-          required
-        />
-      </div>
+            {/* Address Field */}
+            <div className="input-group mb-3">
+              <span className="input-group-text">Address</span>
+              <Field name="address" className="form-control" />
+              {errors.address && touched.address && (
+                <p style={{ color: "salmon", marginLeft: "10px" }}>
+                  {errors.address}
+                </p>
+              )}
+            </div>
 
-      <div className="input-group mb-3">
-        <span className="input-group-text">Phone Number</span>
-        <Input
-          type="text"
-          className="form-control"
-          placeholder="Ex: 09123456789"
-          value={phoneNumber}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setPhoneNumber(e.currentTarget.value)
-          }
-          required
-        />
-      </div>
+            {/* Phone Number Field */}
+            <div className="input-group mb-3">
+              <span className="input-group-text">Phone Number</span>
+              <Field name="phoneNumber" className="form-control" />
+              {errors.phoneNumber && touched.phoneNumber && (
+                <p style={{ color: "salmon", marginLeft: "10px" }}>
+                  {errors.phoneNumber}
+                </p>
+              )}
+            </div>
 
-      <button type="submit" name="Submit" className="btn btn-primary float-end">
-        Create
-      </button>
-    </form>
+            {/* Button */}
+            <Button
+              type="submit"
+              name="Submit"
+              className="btn btn-primary float-end"
+            >
+              {btnText}
+            </Button>
+          </FormikForm>
+        )}
+      </Formik>
+    </>
   );
 };
 

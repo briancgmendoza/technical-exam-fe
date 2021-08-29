@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 // Importing Pages
 import ViewList from "./Pages/ViewList";
@@ -10,7 +10,9 @@ function App() {
     <main className="App container">
       <Switch>
         <Route path="/" exact component={ViewList} />
-        <Route path="/viewlist" exact component={ViewList} />
+        <Route path="/viewlist" exact>
+          <Redirect to="/" />
+        </Route>
         <Route path="/detailspage/:id" exact component={DetailsPage} />
 
         {/* When route doesn't exist, show Not found page */}
