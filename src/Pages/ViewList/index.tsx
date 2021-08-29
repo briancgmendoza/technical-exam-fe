@@ -1,24 +1,24 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-// Importing necessary files for API Request
+/* Importing necessary files for API Request */
 import useHttp from "../../Hooks/use-http";
 import { getData, addData, deleteEmployee } from "../../Lib/api";
 
-// Importing Re-usesable Components
+/* Importing Re-usesable Components */
+import Modal from "../../Components/Modal";
+import Form from "../../Components/Form";
 import Button from "../../Components/Button";
 import Spinner from "../../Components/Spinner";
 
-// Importing Bootstrap Icons .svg file
+/* Importing Bootstrap Icons .svg file */
 import Pencil from "../../Asset/pencil-icon.svg";
 import Delete from "../../Asset/delete-icon.svg";
-import Modal from "../../Components/Modal";
-import Form from "../../Components/Form";
 
 const ViewList = () => {
   let { sendRequest, status, data, error } = useHttp(getData, true);
 
-  // Getting the data from db
+  /* Getting the data from db */
   useEffect(() => {
     sendRequest();
   }, [sendRequest]);

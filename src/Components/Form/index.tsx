@@ -1,13 +1,16 @@
-// Importing Formik and Yup
+/* Importing Formik and Yup */
 import { Formik, Form as FormikForm, Field } from "formik";
 import * as Yup from "yup";
 
-// Importing Re-useable Components
+/* Importing Re-useable Components */
 import Button from "../Button";
 
 const formSchema = Yup.object().shape({
   lastName: Yup.string()
-    .min(1, "Too Short!") // Making it 1 because there's 2 letter last names like "Yu"
+    .min(
+      1,
+      "Too Short!"
+    ) /* Making it 1 because there's 2 letter last names like "Yu" */
     .max(20, "Too Long!")
     .required("Last Name is required!"),
   firstName: Yup.string()
@@ -18,7 +21,7 @@ const formSchema = Yup.object().shape({
     .min(1, "Too Short!")
     .max(20, "Too Long!")
     .required("Middle Name is required!"),
-  age: Yup.number() // Please note that this is only a validation, it'll only accept number in UI, but in backend it accepts it as string
+  age: Yup.number() /* Please note that this is only a validation, it'll only accept number in UI, but in backend it accepts it as string */
     .moreThan(0)
     .max(99, "Too Long!")
     .required("Age is required!")
@@ -27,24 +30,28 @@ const formSchema = Yup.object().shape({
     .min(5, "Too Short!")
     .max(500, "Too Long!")
     .required("Address is required!"),
-  phoneNumber: Yup.string() // Making it string because of + and -
+  phoneNumber: Yup.string() /* Making it string because of + and - */
     .min(5, "Too Short!")
     .max(20, "Too Long!")
     .required("Phone Number is required!"),
 });
 
-// FIXME: Can't figure out a way to define props
-// type Props = {
-//   lastName: string;
-//   firstName: string;
-//   middleName: string;
-//   age: string;
-//   address: string;
-//   phoneNumber: string;
-//   onSubmit: () => any;
-// };
+/* FIXME: Can't figure out a way to define props
+ type Props = {
+   lastName: string;
+   firstName: string;
+   middleName: string;
+   age: string;
+   address: string;
+   phoneNumber: string;
+   onSubmit: () => any;
+};
+
+*/
 
 const Form = ({ btnText, onSubmit }: any) => {
+  /* Didn't get the chance to use useState since formik is already doing 
+  the value and onChange automatically under the hood */
   const myInitialValues = {
     lastName: "",
     firstName: "",
@@ -65,6 +72,9 @@ const Form = ({ btnText, onSubmit }: any) => {
       >
         {({ errors, touched }) => (
           <FormikForm className="p-2 w-100 bd-highlight">
+            {/* Decided to just use inline style for every error message, 
+                got lazy looking up for bootstrap css styles */}
+
             {/* Last Name Field */}
             <div className="input-group mb-3">
               <span className="input-group-text">Last Name</span>

@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 
-// Importing Pages
+/* Importing Pages */
 import ViewList from "./Pages/ViewList";
 import DetailsPage from "./Pages/DetailsPage";
 import NotFound from "./Pages/NotFound";

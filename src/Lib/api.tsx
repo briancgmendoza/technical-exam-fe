@@ -1,6 +1,10 @@
+/* Please note that I know that consistency in code is the best practice, 
+but since this is an exam and I would like to showcase my coding skills. 
+I decided to use different approach for API Requests */
+
 const URL = "http://localhost:5000/api/";
 
-// Get Request for All
+/* Get Request for All */
 export const getData = async () => {
   const response = await fetch(URL + "Employee");
   const data = await response.json();
@@ -20,7 +24,7 @@ export const getData = async () => {
   return transformedData;
 };
 
-// Get Request for specific ID
+/* Get Request for specific ID */
 export const getSelectedData = async (id: any) => {
   const response = await fetch(`${URL}Employee/${id}`);
   const data = await response.json();
@@ -40,7 +44,7 @@ export const getSelectedData = async (id: any) => {
   return transformedCountryData;
 };
 
-// Add Request
+/* Add Request */
 export const addData = async (props: any) => {
   const response = await fetch(URL + "Employee", {
     method: "POST",
@@ -77,7 +81,7 @@ export const addData = async (props: any) => {
   return transformedData;
 };
 
-// Edit Request -- Decided to use an old / different approach here
+/* Edit Request -- Decided to use an old / different approach here */
 export const editEmployee = (props: any) => {
   fetch(URL + "Employee", {
     method: "PUT",
@@ -119,7 +123,7 @@ export const editEmployee = (props: any) => {
     });
 };
 
-// Delete Request -- Same here
+/* Delete Request -- Same here */
 export const deleteEmployee = (id: any) => {
   fetch(URL + "Employee/" + id, {
     method: "DELETE",
