@@ -3,6 +3,9 @@ type Props = {
   children: JSX.Element | string;
 };
 
+/* Basically a div soup, not yet sure how to use html semantics in modal.
+   A room for improvement */
+
 const Modal = ({ modalName, children }: Props) => {
   return (
     <section
