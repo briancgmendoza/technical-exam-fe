@@ -78,14 +78,7 @@ export const addData = async (props: any) => {
 };
 
 // Edit Request -- Decided to use an old / different approach here
-export const editEmployee = ({
-  LastName,
-  FirstName,
-  MiddleName,
-  Age,
-  Address,
-  PhoneNumber,
-}: any) => {
+export const editEmployee = (props: any) => {
   fetch(URL + "Employee", {
     method: "PUT",
     headers: {
@@ -93,12 +86,13 @@ export const editEmployee = ({
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      LastName,
-      FirstName,
-      MiddleName,
-      Age,
-      Address,
-      PhoneNumber,
+      EmployeeMasterID: props.id,
+      LastName: props.lastName,
+      FirstName: props.firstName,
+      MiddleName: props.middleName,
+      Age: props.age,
+      Address: props.address,
+      PhoneNumber: props.phoneNumber,
     }),
   })
     .then((response) => {
